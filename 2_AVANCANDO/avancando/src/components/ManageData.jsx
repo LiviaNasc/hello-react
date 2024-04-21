@@ -3,7 +3,6 @@ import { useState } from "react";
 let someData = 10;
 
 const ManageData = () => {
-
     //15 é o dado vindo diretamente do state
 const [number, setNumber] = useState(15);
 console.log(number);
