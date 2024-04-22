@@ -3,11 +3,24 @@ import {useState} from "react";
 const ListRender = () => {
     const[list] = useState(["Lívia", "John", "Ana", "Julia"]);
 
-    const[users] = useState([
+    const[users, setUsers] = useState([
         {id: 1, name: "Lívia", age: 20},
-        {id: 8743972, name: "John", age: 21},
-        {id: 982374, name: "Ana", age:14},
+        {id: 2, name: "John", age: 21},
+        {id: 3, name: "Ana", age:14},
     ]);
+
+
+    const deleteRandom = function (){
+        const randomNumber = Math.floor(Math.random() * 4) + 1;
+        console.log(randomNumber);
+
+        setUsers((prevUsers) => {
+            console.log(prevUsers);
+            return prevUsers.filter((user) => randomNumber !== user.id);
+            //retorna uma nova lista filtrada, onde somente os usuário cujo id não é igual a randomNumber são mantidos
+        })
+    };
+    
 
     return(
         <div>
@@ -22,6 +35,7 @@ const ListRender = () => {
                     <li key={user.id}>{user.name} - {user.age}</li>
                 ))}
             </ul>
+            <button onClick={deleteRandom}>Deletar usuário aletório</button>
         </div>
     )
 };
