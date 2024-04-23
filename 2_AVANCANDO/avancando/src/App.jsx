@@ -7,9 +7,16 @@ import ListRender from './components/ListRender';
 import ManageData from './components/ManageData';
 import ShowUSerName from './components/ShowUserName';
 import CarDetails from './components/CarDetails';
+import Fragment from './components/Fragment';
 
 function App() {
   const [userName] = useState("Ana");
+
+  const cars = [
+    {id: 1, brand: "Eclipse", color:"Prata", novo: false, km: 1000000},
+    {id: 2, brand: "Ferrari", color:"Vermelho", novo: false, km: 350},
+    {id: 1, brand: "Renault", color:"Cinza", novo: true, km: 0}
+  ];
 
   return (
     
@@ -33,6 +40,16 @@ function App() {
       <CarDetails brand="Renault" km={10000} color="Dourado" novo={false} />
       <CarDetails brand="Ford" km={0} color="Branco" novo={true} />
       <CarDetails brand="VW" km={100000} color="Branco" novo={false}/>
+      {/* Loop em array de objetos */}
+      <h2>Map:</h2>
+      {cars.map((car) => (
+        <CarDetails 
+         brand={car.brand} 
+         color={car.color} 
+         novo={car.novo} 
+         km={car.km}/>
+      ))}
+      <Fragment propFragment="teste" />
     </div>
   )
 }
