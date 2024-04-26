@@ -8,6 +8,10 @@ import ManageData from './components/ManageData';
 import ShowUSerName from './components/ShowUserName';
 import CarDetails from './components/CarDetails';
 import Fragment from './components/Fragment';
+import Container from './components/Cointainer';
+import ExecuteFunction from './components/ExecuteFunction';
+import Message from './components/Message';
+import ChangeMessageState from './components/ChangeMessageState';
 
 function App() {
   const [userName] = useState("Ana");
@@ -15,8 +19,18 @@ function App() {
   const cars = [
     {id: 1, brand: "Eclipse", color:"Prata", novo: false, km: 1000000},
     {id: 2, brand: "Ferrari", color:"Vermelho", novo: false, km: 350},
-    {id: 1, brand: "Renault", color:"Cinza", novo: true, km: 0}
+    {id: 3, brand: "Renault", color:"Cinza", novo: true, km: 0}
   ];
+
+  function showMessage () {
+    console.log('Evento do componente pai');
+  }
+
+  const [message, setMessage] = useState("");
+
+  const handleMessage = (msg) => {
+    setMessage(msg);
+  };
 
   return (
     
@@ -44,12 +58,25 @@ function App() {
       <h2>Map:</h2>
       {cars.map((car) => (
         <CarDetails 
+         key={car.id}
          brand={car.brand} 
          color={car.color} 
          novo={car.novo} 
          km={car.km}/>
       ))}
       <Fragment propFragment="teste" />
+       {/*Children props*/}
+       <Container myValue="testing">
+        <p>E este é o conteúdo</p> 
+        </Container>
+        <Container myValue="testando ">
+        <p>Reutilização do container</p> 
+        </Container>
+        {/*executar função*/}
+        <ExecuteFunction myFunction={showMessage}/>
+        {/*State Lift */}
+        <Message msg={message} />
+        <ChangeMessageState handleMessage={handleMessage} />
     </div>
   )
 }
