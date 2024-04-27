@@ -1,0 +1,12 @@
+.carDetails{
+    margin: 10px auto;
+    font-size: large;
+    background-color: antiquewhite;
+    width: fit-content;
+    padding: 25px;
+}
+
+.carDetails ol{
+    color: rgb(77, 21, 77);
+    font-weight: 700;
+}

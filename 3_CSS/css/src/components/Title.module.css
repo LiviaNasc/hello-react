@@ -1,0 +1,6 @@
+/* Boa estratégia para restringir o CSS a nível de componente */
+.my_title {
+    color: orange;
+    background-color: #555;
+    padding: 10px;
+}
