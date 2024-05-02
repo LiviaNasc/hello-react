@@ -7,7 +7,8 @@ function App() {
   return (
     <>
       <h2>My Form</h2>
-      <MyForm />
+      {/*Controlled inputs */}
+      <MyForm user={{name: "Lívia", email: "livia@gmail.com", bio: "Sou estudante", role: "admin"}}/>
     </>
   )
 }
