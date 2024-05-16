@@ -33,9 +33,9 @@ function App() {
   const [guessedLetters, setGuessedLetters] = useState([]);
   const [wrongLetters, setWrongLetters] = useState([]);
   const [guesses, setGuesses] = useState(guessesQty);
-  const [score, setScore] = useState(0);
+  const [score, setScore] = useState(80);
 
-  const pickWordAndCategory = () => {
+  const pickWordAndCategory = useCallback(() => {
     const categories = Object.keys(words);
     const category = categories[Math.floor(Math.random() * Object.keys(categories).length)];
 
@@ -43,10 +43,12 @@ function App() {
     const word = words[category][Math.floor(Math.random() * words[category].length)];
 
     return {word, category};
-  }
+  },[words]);
 
 
-  const startGame = () => {
+  const startGame = useCallback(() => {
+    clearLetterStates();
+
     const {word, category} = pickWordAndCategory();
     console.log(word, category);
 
@@ -61,7 +63,7 @@ function App() {
     setLetters(wordLetters); 
 
     setGameStage(stages[1].name);
-  }
+  }, [pickWordAndCategory]);
 
   
   const verifyLetter = (letter) => {
@@ -93,6 +95,7 @@ function App() {
     setWrongLetters([]);
   }
 
+  // check if guesses ended
   useEffect(() =>{
     if(guesses <= 0){
       clearLetterStates();
@@ -100,6 +103,22 @@ function App() {
       setGameStage(stages[2].name);
     }
   }, [guesses] )
+
+
+  // check win condition
+  useEffect(() => {
+    /*set armazena apenas valores únicos, uniqueLetter vai armazenar todas as
+    letras únicas necessárias para ganhar o jogo*/
+    const uniqueLetters = [... new Set(letters)];
+
+    // win condition
+    if(guessedLetters.length === uniqueLetters.length){
+      setScore((actualScore) => actualScore +=100);
+
+      // restart game
+      startGame();
+    }
+  }, [guessedLetters, letters, startGame])
 
 
   const retry = () => {
@@ -123,7 +142,7 @@ function App() {
      guesses={guesses}
      score={score}
      />}
-     { gameStage === "end" && <GameOver retry={retry} />}
+     { gameStage === "end" && <GameOver retry={retry} score={score} />}
     </div>
   )
 }
