@@ -38,7 +38,7 @@ const Game = ({
 
       {/*Exibição das letras */}
       <div className="wordContainer">
-        {/*Se a letra estivet incluída no guessedLetters, ou seja, se já estiver 
+        {/*Se a letra estiver incluída no guessedLetters, ou seja, se já estiver 
         sido adivinhada, imprime-a*/}
         {letters.map((letter, i) => (
           guessedLetters.includes(letter) ? (

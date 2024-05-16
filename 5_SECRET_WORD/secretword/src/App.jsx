@@ -33,7 +33,7 @@ function App() {
   const [guessedLetters, setGuessedLetters] = useState([]);
   const [wrongLetters, setWrongLetters] = useState([]);
   const [guesses, setGuesses] = useState(guessesQty);
-  const [score, setScore] = useState(80);
+  const [score, setScore] = useState(0);
 
   const pickWordAndCategory = useCallback(() => {
     const categories = Object.keys(words);
@@ -69,6 +69,8 @@ function App() {
   const verifyLetter = (letter) => {
     const normalizedLetter = letter.toLowerCase();
 
+    /*se a letra já foi adivinhada (guessedLetters) ou é incorreta (wrongLeyyer)
+    a função retorna imediatamente, -ISSO EVITA QUE O MESMO PALPITE SEJA PROCESSADO MAIS DE UMA VEZ-*/
     if(guessedLetters.includes(normalizedLetter) || wrongLetters.includes(normalizedLetter)){
       return;
     }
